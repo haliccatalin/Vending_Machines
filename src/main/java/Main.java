@@ -15,17 +15,55 @@ For guidance you can check the code from this repository to see how these requir
 */
 
 
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
+    private static ImportExportController controller = new ImportExportController();
 
     public static void main (String argv[]){
-
-        ImportExportController controller = new ImportExportController();
         controller.importProducts();
         controller.printProducts();
 
 
 
+        menu();
 
+    }
+
+    public static void menu() {
+
+        List<Product> productsList = controller.exportProducts();
+
+        // afisare lista
+        for (int i = 0; i < productsList.size(); i++) {
+            Product p = productsList.get(i);
+
+            System.out.println(i + ". " + p.getName());
+        }
+
+        while(true) {
+            System.out.println("Selectati un produs din lista, pentru a iesi introduceti \"exit\" ");
+            try {
+                Scanner scanner = new Scanner(System.in);
+
+                String input = scanner.next();
+
+                if(input.equalsIgnoreCase("exit")) {
+                    break;
+                }
+
+                int productNumber = Integer.getInteger(input);
+
+                Product product = productsList.get(productNumber);
+                System.out.println(product);
+            } catch (IndexOutOfBoundsException | NullPointerException indexOutOfBoundsException) {
+                System.out.println("Numar invalid!");
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println("Introduceti un numar, nu un text!!!!");
+            }
+        }
     }
 
 }

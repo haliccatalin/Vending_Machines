@@ -10,7 +10,7 @@ public class ImportExportController {
     }
 
     public void importProducts() {
-        for (int i=1; i<=20; i++){
+        for (int i=100; i<=120; i++){
             Product p = new Product("product-"+i,"coffee "+i,i*10.0);
             this.productsList.add(p);
         }
@@ -20,6 +20,10 @@ public class ImportExportController {
         for (Product product : productsList){
             System.out.println(product);
         }
+    }
+
+    public List<Product> exportProducts() {
+        return this.productsList;
     }
 
 }
